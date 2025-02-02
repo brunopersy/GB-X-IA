@@ -34,16 +34,16 @@ Este é o site do meu portfólio profissional, criado para apresentar meus proje
 ## 🚀 Como Executar o Projeto  
 1. Clone o repositório:  
    ```bash
-   git clone https://github.com/seu-usuario/meu-portifolio.git
+   git clone https://github.com/brunopersy/GB-X-IA
    ```  
 2. Acesse a pasta do projeto:  
    ```bash
-   cd meu-portifolio
+   cd GB-X-IA
    ```  
 3. Abra o `index.html` no navegador.  
 
 ## 🌍 Demonstração Online  
-Você pode acessar o site publicado em: **[GitHub Pages](https://seu-usuario.github.io/meu-portifolio/)**  
+Você pode acessar o site publicado em:  
 
 ## 📞 Contato  
-Me encontre no [LinkedIn](https://www.linkedin.com/in/seu-usuario) ou envie um e-mail para **seuemail@email.com**.  
+Me encontre no [LinkedIn] ou envie um e-mail para **tecnicobrunoind@gmail.com**.  
