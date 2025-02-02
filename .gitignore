@@ -1,0 +1,15 @@
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Node.js
+node_modules/
+package-lock.json
+
+# IDEs e editores
+.vscode/
+.idea/
+
+# Arquivos de build
+dist/
+build/
