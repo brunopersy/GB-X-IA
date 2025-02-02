@@ -10,7 +10,7 @@ Este é o site do meu portfólio profissional, criado para apresentar meus proje
 
 ## 📂 Estrutura do Projeto  
 ```
-/meu-portifolio
+/GB-X-IA
 │── /assets
 │   ├── /css
 │   │   ├── style.css
