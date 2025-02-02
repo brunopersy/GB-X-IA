@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gordão.IA - Inteligência Artificial Aplicada</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        :root {
+            --primary-color: #2A0946;
+            --secondary-color: #3B185F;
+            --accent-color: #a22367;
+            --text-color: #FEC260;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--text-color);
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Serviços e Portfólio */
+        .services, .portfolio {
+            padding: 5rem 5%;
+        }
+
+        .services {
+            background-color: #f8f9fa;
+        }
+
+        .portfolio {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .services-grid, .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .service-card i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Portfólio */
+        .portfolio-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(42,9,68,0.9), transparent);
+            padding: 1.5rem;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Filtros */
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid var(--accent-color);
+            border-radius: 20px;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background-color: var(--accent-color);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3rem 5%;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 10000;
+            padding: 2rem;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="#" class="logo">TecCaju.IA</a>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#servicos">Serviços</a>
+            <a href="#portfolio">Portfólio</a>
+            <a href="#sobre">Sobre</a>
+            <a href="#contato">Contato</a>
+            <a href="#" class="btn btn-primary">Demo Gratuita</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Transformando o Futuro com IA Inteligente</h1>
+            <p>Soluções inovadoras em inteligência artificial para impulsionar seu negócio</p>
+            <div class="cta-buttons">
+                <a href="#servicos" class="btn btn-primary">Nossos Serviços</a>
+                <a href="#contato" class="btn btn-secondary">Fale Conosco</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://source.unsplash.com/random/800x600?ai,technology" alt="IA" style="border-radius: 10px;">
+        </div>
+    </section>
+
+    <!-- Serviços -->
+    <section class="services" id="servicos">
+        <h2 class="section-title">Nossos Serviços</h2>
+        <p class="section-subtitle">Desenvolvemos soluções personalizadas em IA para diversas áreas</p>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-robot"></i>
+                <h3>Automação Inteligente</h3>
+                <p>Otimização de processos com machine learning e RPA</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-brain"></i>
+                <h3>Análise Preditiva</h3>
+                <p>Previsões precisas para tomada de decisão estratégica</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-comments"></i>
+                <h3>Chatbots Avançados</h3>
+                <p>Atendimento 24h com processamento de linguagem natural</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfólio -->
+    <section class="portfolio" id="portfolio">
+        <h2 class="section-title">Nossas Soluções</h2>
+        <p class="section-subtitle">Conheça alguns cases de sucesso que desenvolvemos</p>
+
+        <div class="portfolio-filters">
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            <button class="filter-btn" data-filter="ecommerce">E-commerce</button>
+            <button class="filter-btn" data-filter="saude">Saúde</button>
+            <button class="filter-btn" data-filter="financas">Finanças</button>
+        </div>
+        
+        <div class="portfolio-grid">
+            <div class="portfolio-item" data-category="ecommerce">
+                <img src="https://source.unsplash.com/random/400x300?ai,startup" alt="Projeto 1">
+                <div class="portfolio-overlay">
+                    <h3>Sistema de Recomendação</h3>
+                    <p>+30% em vendas cruzadas</p>
+                    <p>E-commerce de moda</p>
+                    <button class="btn btn-primary" onclick="openLightbox(1)">Ver Detalhes</button>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="financas">
+                <img src="https://source.unsplash.com/random/400x300?ai,finance" alt="Projeto 2">
+                <div class="portfolio-overlay">
+                    <h3>Previsão Financeira</h3>
+                    <p>95% de precisão</p>
+                    <p>Fintech brasileira</p>
+                    <button class="btn btn-primary" onclick="openLightbox(2)">Ver Detalhes</button>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="saude">
+                <img src="https://source.unsplash.com/random/400x300?ai,health" alt="Projeto 3">
+                <div class="portfolio-overlay">
+                    <h3>Diagnóstico Médico</h3>
+                    <p>Redução de 40% em erros</p>
+                    <p>Hospital universitário</p>
+                    <button class="btn btn-primary" onclick="openLightbox(3)">Ver Detalhes</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <span class="close-btn" onclick="closeLightbox()">&times;</span>
+            <div id="lightbox-data"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>TecCaju.IA</h3>
+                <p>Transformando ideias em realidade através da inteligência artificial</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <p>Email: contato@teccaju.ia</p>
+                <p>Telefone: (11) 99999-9999</p>
+            </div>
+            <div class="footer-section">
+                <h3>Redes Sociais</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 2rem;">© 2023 TecCaju.IA - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Filtros do Portfólio
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                
+                document.querySelectorAll('.portfolio-item').forEach(item => {
+                    item.style.display = (filter === 'all' || item.dataset.category === filter) 
+                        ? 'block' 
+                        : 'none';
+                });
+            });
+        });
+
+        // Lightbox
+        const projects = {
+            1: {
+                title: "Sistema de Recomendação",
+                details: "<h3>E-commerce de Moda</h3><p>Implementação de sistema de recomendação baseado em deep learning que aumentou as vendas cruzadas em 30%</p><ul><li>Tecnologia: TensorFlow + NLP</li><li>Prazo: 6 meses</li><li>Retorno: 300% ROI</li></ul>"
+            },
+            2: {
+                title: "Previsão Financeira",
+                details: "<h3>Fintech Brasileira</h3><p>Solução preditiva para fluxo de caixa com 95% de precisão nas previsões</p><ul><li>Tecnologia: Python + Prophet</li><li>Prazo: 4 meses</li><li>Resultado: Redução de 20% em custos operacionais</li></ul>"
+            },
+            3: {
+                title: "Diagnóstico Médico",
+                details: "<h3>Hospital Universitário</h3><p>Sistema de apoio a diagnóstico com redução de 40% em erros de triagem</p><ul><li>Tecnologia: Computer Vision + CNN</li><li>Prazo: 8 meses</li><li>Impacto: 15k pacientes/ano</li></ul>"
+            }
+        };
+
+        function openLightbox(id) {
+            const lightbox = document.getElementById('lightbox');
+            const content = document.getElementById('lightbox-data');
+            content.innerHTML = `
+                <h2>${projects[id].title}</h2>
+                ${projects[id].details}
+                <img src="https://source.unsplash.com/random/800x600?project${id}" alt="Detalhes do Projeto" style="width:100%;margin-top:1rem;">
+            `;
+            lightbox.style.display = 'block';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // Fechar lightbox ao clicar fora
+        window.onclick = function(event) {
+            const lightbox = document.getElementById('lightbox');
+            if (event.target === lightbox) {
+                lightbox.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
